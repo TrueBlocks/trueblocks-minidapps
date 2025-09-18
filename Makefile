@@ -9,7 +9,9 @@
 build:
 	@echo "Building all applications..."
 	@mkdir -p bin
-	go build -o bin/explorer ./explorer
+	@echo "Building Wails explorer..."
+	@cd explorer && wails build
+	@cp "explorer/build/bin/TrueBlocks Explorer.app/Contents/MacOS/trueblocks-explorer" bin/explorer
 	go build -o bin/testapp1 ./testapp1
 	go build -o bin/testapp2 ./testapp2
 	@echo "✅ Build complete"
@@ -29,6 +31,7 @@ test:
 clean:
 	@echo "Cleaning build artifacts..."
 	rm -rf bin/
+	@cd explorer && rm -rf build/
 	@cd explorer && go clean ./...
 	@cd testapp1 && go clean ./...
 	@cd testapp2 && go clean ./...
@@ -58,11 +61,10 @@ fmt:
 	@cd libs/trueblocks-dalle && go fmt ./...
 	@echo "✅ Format complete"
 
-# Update git submodules
+# Update everything: submodules, Go modules, and workspace
 update:
-	@echo "Updating submodules..."
-	git submodule update --remote
-	@echo "✅ Submodules updated"
+	@echo "Running comprehensive update..."
+	@./scripts/update-all
 
 # Run explorer
 explorer: build
@@ -93,7 +95,7 @@ help:
 	@echo "  lint       - Run golangci-lint on all modules (may have issues)"
 	@echo "  fmt        - Format all Go code"
 	@echo "  check      - Run fmt, test, and build"
-	@echo "  update     - Update git submodules"
+	@echo "  update     - Update git submodules and Go modules comprehensively"
 	@echo "  explorer   - Build and run explorer"
 	@echo "  app1       - Build and run testapp1"
 	@echo "  app2       - Build and run testapp2"
