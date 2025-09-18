@@ -1,6 +1,6 @@
 # TrueBlocks Mini-DApps Mono-Repo
 
-.PHONY: build test clean lint lint-all fmt help update-libs run-app1 run-app2 check
+.PHONY: build test clean lint lint-all fmt help update explorer app1 app2 check
 
 # Default target
 .DEFAULT_GOAL := help
@@ -66,18 +66,37 @@ update:
 	@echo "Running comprehensive update..."
 	@./scripts/update-all
 
+bin/explorer: $(shell find explorer -name "*.go" -o -name "*.json" -o -name "*.mod" -o -name "*.sum" | grep -v build/)
+	@echo "Building Wails explorer..."
+	@mkdir -p bin
+	@cd explorer && wails build
+	@cp "explorer/build/bin/TrueBlocks Explorer.app/Contents/MacOS/trueblocks-explorer" bin/explorer
+	@echo "✅ Explorer build complete"
+
+bin/testapp1: $(shell find testapp1 -name "*.go" -o -name "*.mod" -o -name "*.sum")
+	@echo "Building testapp1..."
+	@mkdir -p bin
+	go build -o bin/testapp1 ./testapp1
+	@echo "✅ testapp1 build complete"
+
+bin/testapp2: $(shell find testapp2 -name "*.go" -o -name "*.mod" -o -name "*.sum")
+	@echo "Building testapp2..."
+	@mkdir -p bin
+	go build -o bin/testapp2 ./testapp2
+	@echo "✅ testapp2 build complete"
+
 # Run explorer
-explorer: build
+explorer: bin/explorer
 	@echo "Running explorer..."
 	./bin/explorer
 
 # Run testapp1
-app1: build
+app1: bin/testapp1
 	@echo "Running testapp1..."
 	./bin/testapp1
 
 # Run testapp2
-app2: build
+app2: bin/testapp2
 	@echo "Running testapp2..."
 	./bin/testapp2
 
