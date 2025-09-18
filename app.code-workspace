@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "libs/dalle"
+    },
+    {
+      "path": "libs/sdk"
+    },
+    {
+      "path": "explorer"
+    }
+  ],
+  "settings": {
+    "typescript.tsdk": "./frontend/node_modules/typescript/lib",
+    "gopls": {
+      "analyses": {
+        "infertypeargs": false
+      }
+    }
+  }
+}
