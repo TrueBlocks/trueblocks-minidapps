@@ -9,6 +9,7 @@
 build:
 	@echo "Building all applications..."
 	@mkdir -p bin
+	go build -o bin/explorer ./explorer
 	go build -o bin/testapp1 ./testapp1
 	go build -o bin/testapp2 ./testapp2
 	@echo "✅ Build complete"
@@ -16,6 +17,7 @@ build:
 # Test all modules
 test:
 	@echo "Running tests..."
+	@cd explorer && go test ./...
 	@cd testapp1 && go test ./...
 	@cd testapp2 && go test ./...
 	@echo "Testing libraries..."
@@ -27,6 +29,7 @@ test:
 clean:
 	@echo "Cleaning build artifacts..."
 	rm -rf bin/
+	@cd explorer && go clean ./...
 	@cd testapp1 && go clean ./...
 	@cd testapp2 && go clean ./...
 	@cd libs/trueblocks-sdk && go clean ./...
@@ -37,6 +40,7 @@ clean:
 lint:
 	@echo "Running linter on all modules..."
 	@command -v golangci-lint >/dev/null 2>&1 || { echo "golangci-lint not installed. Install with: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin latest"; exit 1; }
+	@cd explorer && golangci-lint run
 	@cd testapp1 && golangci-lint run
 	@cd testapp2 && golangci-lint run
 	@echo "Linting libraries..."
@@ -47,6 +51,7 @@ lint:
 # Format all Go code
 fmt:
 	@echo "Formatting code..."
+	@cd explorer && go fmt ./...
 	@cd testapp1 && go fmt ./...
 	@cd testapp2 && go fmt ./...
 	@cd libs/trueblocks-sdk && go fmt ./...
@@ -55,9 +60,14 @@ fmt:
 
 # Update git submodules
 update:
-	@echo "Updating library submodules..."
+	@echo "Updating submodules..."
 	git submodule update --remote
-	@echo "✅ Libraries updated"
+	@echo "✅ Submodules updated"
+
+# Run explorer
+explorer: build
+	@echo "Running explorer..."
+	./bin/explorer
 
 # Run testapp1
 app1: build
@@ -83,7 +93,8 @@ help:
 	@echo "  lint       - Run golangci-lint on all modules (may have issues)"
 	@echo "  fmt        - Format all Go code"
 	@echo "  check      - Run fmt, test, and build"
-	@echo "  update-libs- Update git submodules"
-	@echo "  run-app1   - Build and run testapp1"
-	@echo "  run-app2   - Build and run testapp2"
+	@echo "  update     - Update git submodules"
+	@echo "  explorer   - Build and run explorer"
+	@echo "  app1       - Build and run testapp1"
+	@echo "  app2       - Build and run testapp2"
 	@echo "  help       - Show this help message"

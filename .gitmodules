@@ -4,3 +4,6 @@
 [submodule "libs/trueblocks-dalle"]
 	path = libs/trueblocks-dalle
 	url = https://github.com/TrueBlocks/trueblocks-dalle.git
+[submodule "explorer"]
+	path = explorer
+	url = git@github.com:TrueBlocks/trueblocks-explorer.git

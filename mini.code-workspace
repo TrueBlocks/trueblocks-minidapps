@@ -1,0 +1,49 @@
+{
+	"folders": [
+		{
+			"name": "Explorer",
+			"path": "./explorer"
+		},
+		{
+			"name": "TrueBlocks SDK",
+			"path": "./libs/trueblocks-sdk"
+		},
+		{
+			"name": "TrueBlocks DALL-E",
+			"path": "./libs/trueblocks-dalle"
+		}
+	],
+	"settings": {
+		"go.goroot": "",
+		"go.gopath": "",
+		"go.toolsManagement.autoUpdate": true,
+		"go.useLanguageServer": true,
+		"gopls": {
+			"ui.completion.usePlaceholders": true,
+			"ui.semanticTokens": true,
+			"ui.codelenses": {
+				"gc_details": false,
+				"generate": true,
+				"regenerate_cgo": true,
+				"test": true,
+				"tidy": true,
+				"upgrade_dependency": true,
+				"vendor": true
+			}
+		},
+		"files.exclude": {
+			"**/node_modules": true,
+			"**/.git": false,
+			"**/.DS_Store": true,
+			"**/bin": true
+		}
+	},
+	"extensions": {
+		"recommendations": [
+			"golang.go",
+			"ms-vscode.vscode-json",
+			"redhat.vscode-yaml",
+			"davidanson.vscode-markdownlint"
+		]
+	}
+}
