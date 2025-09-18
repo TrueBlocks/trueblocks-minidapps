@@ -1,0 +1,38 @@
+{
+  // Keep essential functionality
+  "go.formatOnSave": true,
+  
+  // Optimize gopls performance for this workspace
+  "gopls": {
+    // Keep essential error checking and formatting
+    "formatting.gofumpt": true,
+    "formatting.local": "github.com/TrueBlocks",
+    
+    // Disable expensive analyses that cause slowdowns
+    "analyses": {
+      "fillstruct": false,
+      "nonewvars": false,
+      "noresultvalues": false,
+      "undeclaredname": false,
+      "unusedwrite": false,
+      "useany": false
+    },
+    
+    // Reduce workspace scanning overhead
+    "expandWorkspaceToModule": false,
+    
+    // Disable expensive static analysis
+    "staticcheck": false,
+    
+    // Optimize completion and hover performance
+    "completionBudget": "100ms",
+    "hoverKind": "SynopsisDocumentation",
+    
+    // Optimize performance for large workspaces
+    "diagnosticsDelay": "1s",
+    "symbolMatcher": "FastFuzzy"
+  },
+  
+  // Keep essential tools working
+  "go.toolsManagement.autoUpdate": false
+}

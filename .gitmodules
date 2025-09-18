@@ -1,0 +1,6 @@
+[submodule "libs/trueblocks-sdk"]
+	path = libs/trueblocks-sdk
+	url = https://github.com/TrueBlocks/trueblocks-sdk.git
+[submodule "libs/trueblocks-dalle"]
+	path = libs/trueblocks-dalle
+	url = https://github.com/TrueBlocks/trueblocks-dalle.git
