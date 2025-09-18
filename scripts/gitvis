@@ -26,6 +26,7 @@ esac
 run_git_command() {
     local dir="$1"
     local display_name="$2"
+    shift 2  # Remove dir and display_name from arguments
     
     echo "=== $display_name ==="
     if [ -d "$dir" ]; then
