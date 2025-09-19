@@ -2,6 +2,13 @@
   // Keep essential functionality
   "go.formatOnSave": true,
   
+  // Git and Source Control settings for submodule visibility
+  "git.detectSubmodules": true,
+  "git.fetchOnPull": true,
+  "git.autofetch": true,
+  "scm.defaultViewMode": "tree",
+  "git.showUnpublishedCommits": true,
+  
   // Optimize gopls performance for this workspace
   "gopls": {
     // Keep essential error checking and formatting
