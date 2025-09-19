@@ -13,6 +13,3 @@
 [submodule "dev-tools/create-local-app"]
 	path = dev-tools/create-local-app
 	url = https://github.com/TrueBlocks/create-local-app.git
-[submodule "dalleserver"]
-	path = dalleserver
-	url = https://github.com/TrueBlocks/trueblocks-dalleserver.git
