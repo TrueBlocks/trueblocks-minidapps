@@ -13,16 +13,20 @@
       "path": "./namester"
     },
     {
+      "name": "DALL-E Server",
+      "path": "./dalleserver"
+    },
+    {
       "name": "🛠️ Dev Tools",
       "path": "./dev-tools/create-local-app"
     },
     {
       "name": "🎨 TrueBlocks DALL-E Library",
-      "path": "./libs/trueblocks-dalle"
+      "path": "./libs/dalle"
     },
     {
       "name": "📚 TrueBlocks SDK Library",
-      "path": "./libs/trueblocks-sdk"
+      "path": "./libs/sdk"
     }
   ],
   "settings": {

@@ -1,6 +1,6 @@
 # TrueBlocks Mini
 
-.PHONY: build test clean lint lint-all fmt help update explorer namester check build-dev-tools test-dev-tools update-dev-tools
+.PHONY: build test clean lint lint-all fmt help update explorer namester dalleserver check build-dev-tools test-dev-tools update-dev-tools
 
 # Default target
 .DEFAULT_GOAL := help
@@ -15,6 +15,8 @@ build:
 	@echo "Building Wails namester..."
 	@cd namester && wails build
 	@cp "namester/build/bin/TrueBlocks Namester.app/Contents/MacOS/trueblocks-namester" bin/namester
+	@echo "Building dalleserver..."
+	@cd dalleserver && go build -o ../bin/dalleserver main.go
 	@echo "✅ Build complete"
 
 # Test all modules
@@ -22,6 +24,7 @@ test:
 	@echo "Running tests..."
 	@cd explorer && go test ./...
 	@cd namester && go test ./...
+	@cd dalleserver && TB_DALLE_SKIP_IMAGE=1 go test ./...
 	@echo "Testing libraries..."
 	@cd libs/trueblocks-sdk && go test ./... || echo "  SDK tests completed with expected issues"
 	@cd libs/trueblocks-dalle && go test ./... || echo "  DALLE tests completed with expected issues"
@@ -37,11 +40,10 @@ clean:
 	@cd explorer && go clean ./...
 	@cd namester && rm -rf build/
 	@cd namester && go clean ./...
+	@cd dalleserver && go clean ./...
 	@cd libs/trueblocks-sdk && go clean ./...
 	@cd libs/trueblocks-dalle && go clean ./...
 	@cd dev-tools/create-local-app && go clean ./... && rm -rf bin/
-	@echo "✅ Clean complete"
-	@cd libs/trueblocks-dalle && go clean ./...
 	@echo "✅ Clean complete"
 
 # Lint all code including libraries (may have issues)
@@ -50,6 +52,7 @@ lint:
 	@command -v golangci-lint >/dev/null 2>&1 || { echo "golangci-lint not installed. Install with: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin latest"; exit 1; }
 	@cd explorer && golangci-lint run
 	@cd namester && golangci-lint run
+	@cd dalleserver && golangci-lint run
 	@echo "Linting libraries..."
 	@cd libs/trueblocks-sdk && golangci-lint run || echo "  SDK lint completed with expected issues"
 	@cd libs/trueblocks-dalle && golangci-lint run || echo "  DALLE lint completed with expected issues"
@@ -60,6 +63,7 @@ fmt:
 	@echo "Formatting code..."
 	@cd explorer && go fmt ./...
 	@cd namester && go fmt ./...
+	@cd dalleserver && go fmt ./...
 	@cd libs/trueblocks-sdk && go fmt ./...
 	@cd libs/trueblocks-dalle && go fmt ./...
 	@cd dev-tools/create-local-app && go fmt ./...
@@ -84,6 +88,12 @@ bin/namester: $(shell find namester -name "*.go" -o -name "*.json" -o -name "*.m
 	@cp "namester/build/bin/TrueBlocks Namester.app/Contents/MacOS/trueblocks-namester" bin/namester
 	@echo "✅ Namester build complete"
 
+bin/dalleserver: $(shell find dalleserver -name "*.go" -o -name "*.mod" -o -name "*.sum")
+	@echo "Building dalleserver..."
+	@mkdir -p bin
+	@cd dalleserver && go build -o ../bin/dalleserver main.go
+	@echo "✅ Dalleserver build complete"
+
 # Run explorer
 explorer: bin/explorer
 	@echo "Running explorer..."
@@ -93,6 +103,11 @@ explorer: bin/explorer
 namester: bin/namester
 	@echo "Running namester..."
 	./bin/namester
+
+# Run dalleserver
+dalleserver: bin/dalleserver
+	@echo "Running dalleserver..."
+	./bin/dalleserver
 
 # Build development tools
 build-dev-tools:
@@ -120,15 +135,16 @@ check: fmt test build
 help:
 	@echo "TrueBlocks Mini-DApps Development Commands:"
 	@echo ""
-	@echo "  build      - Build all applications"
-	@echo "  test       - Run tests for all modules"
-	@echo "  clean      - Clean build artifacts"
-	@echo "  lint       - Run golangci-lint on all modules (may have issues)"
-	@echo "  fmt        - Format all Go code"
-	@echo "  check      - Run fmt, test, and build"
-	@echo "  update     - Update git submodules and Go modules comprehensively"
-	@echo "  explorer   - Build and run explorer"
-	@echo "  namester   - Build and run namester"
+	@echo "  build       - Build all applications"
+	@echo "  test        - Run tests for all modules"
+	@echo "  clean       - Clean build artifacts"
+	@echo "  lint        - Run golangci-lint on all modules (may have issues)"
+	@echo "  fmt         - Format all Go code"
+	@echo "  check       - Run fmt, test, and build"
+	@echo "  update      - Update git submodules and Go modules comprehensively"
+	@echo "  explorer    - Build and run explorer"
+	@echo "  namester    - Build and run namester"
+	@echo "  dalleserver - Build and run dalleserver"
 	@echo ""
 	@echo "Development Tools:"
 	@echo "  build-dev-tools   - Build development tools (create-local-app)"
