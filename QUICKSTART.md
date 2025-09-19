@@ -15,8 +15,8 @@ make build      # Build all apps
 make test       # Run tests 
 make fmt        # Format code
 make lint       # Run linter (requires golangci-lint)
-make run-app1   # Run testapp1
-make run-app2   # Run testapp2
+make explorer   # Run explorer
+make namester   # Run namester
 make clean      # Clean artifacts
 make help       # Show all commands
 ```

@@ -22,8 +22,6 @@ test:
 	@echo "Running tests..."
 	@cd explorer && go test ./...
 	@cd namester && go test ./...
-	@cd testapp1 && go test ./...
-	@cd testapp2 && go test ./...
 	@echo "Testing libraries..."
 	@cd libs/trueblocks-sdk && go test ./... || echo "  SDK tests completed with expected issues"
 	@cd libs/trueblocks-dalle && go test ./... || echo "  DALLE tests completed with expected issues"
@@ -52,8 +50,6 @@ lint:
 	@command -v golangci-lint >/dev/null 2>&1 || { echo "golangci-lint not installed. Install with: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin latest"; exit 1; }
 	@cd explorer && golangci-lint run
 	@cd namester && golangci-lint run
-	@cd testapp1 && golangci-lint run
-	@cd testapp2 && golangci-lint run
 	@echo "Linting libraries..."
 	@cd libs/trueblocks-sdk && golangci-lint run || echo "  SDK lint completed with expected issues"
 	@cd libs/trueblocks-dalle && golangci-lint run || echo "  DALLE lint completed with expected issues"
