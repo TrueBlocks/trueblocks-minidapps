@@ -29,9 +29,6 @@ go.work.sum
 # env file
 .env
 
-# Independent repositories (not submodules)
-dalleserver/
-
 # Editor/IDE
 # .idea/
 # .vscode/
