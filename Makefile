@@ -16,7 +16,7 @@ build:
 	@cd namester && wails build
 	@cp "namester/build/bin/TrueBlocks Namester.app/Contents/MacOS/trueblocks-namester" bin/namester
 	@echo "Building dalleserver..."
-	@cd dalleserver && go build -o ../bin/dalleserver main.go
+	@cd dalleserver && go build -o ../bin/dalleserver ./...
 	@echo "✅ Build complete"
 
 # Test all modules
