@@ -9,8 +9,8 @@ trueblocks-minidapps/
 ├── libs/                     # Shared libraries as git submodules
 │   ├── trueblocks-sdk/      # Core SDK library (v5)
 │   └── trueblocks-dalle/    # DALL-E integration library (v2)
-├── testapp1/                # Example application 1
-├── testapp2/                # Example application 2
+├── explorer/                # TrueBlocks Explorer Wails application
+├── namester/                # TrueBlocks Namester Wails application
 ├── bin/                     # Built binaries (created by make build)
 ├── .github/workflows/       # CI/CD workflows
 ├── go.work                  # Go workspace configuration
@@ -64,8 +64,8 @@ make fmt
 make lint
 
 # Run specific app
-make run-app1
-make run-app2
+make explorer
+make namester
 
 # Clean build artifacts
 make clean
@@ -80,8 +80,8 @@ make update-libs
 # Update Go dependencies in all modules
 cd libs/trueblocks-sdk && go get -u ./...
 cd libs/trueblocks-dalle && go get -u ./...
-cd testapp1 && go get -u ./...
-cd testapp2 && go get -u ./...
+cd explorer && go get -u ./...
+cd namester && go get -u ./...
 ```
 
 ### Adding New Applications

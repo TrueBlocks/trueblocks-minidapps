@@ -7,3 +7,6 @@
 [submodule "explorer"]
 	path = explorer
 	url = git@github.com:TrueBlocks/trueblocks-explorer.git
+[submodule "namester"]
+	path = namester
+	url = git@github.com:TrueBlocks/trueblocks-namester.git

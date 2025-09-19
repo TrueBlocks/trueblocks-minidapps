@@ -1,6 +1,21 @@
-# TrueBlocks Mini-DApps Mono-Repo
+# TrueBlocks Mini# Test all modules
+test:
+	@echo# Lint all code including libraries (may have issues)
+lint:
+	@echo "Running linter on all modules..."
+	@command -v golangci-lint >/dev/null 2>&1 || { echo "golangci-lint not installed. Install with: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin latest"; exit 1; }
+	@cd explorer && golangci-lint run
+	@cd namester && golangci-lint run
+	@echo "Linting libraries..."
+	@cd libs/trueblocks-sdk && golangci-lint run || echo "  SDK lint completed with expected issues"tests..."
+	@cd explorer && go test ./...
+	@cd namester && go test ./...
+	@echo "Testing libraries..."
+	@cd libs/trueblocks-sdk && go test ./... || echo "  SDK tests completed with expected issues"
+	@cd libs/trueblocks-dalle && go test ./... || echo "  DALLE tests completed with expected issues"
+	@echo "✅ Tests complete"-Repo
 
-.PHONY: build test clean lint lint-all fmt help update explorer app1 app2 check
+.PHONY: build test clean lint lint-all fmt help update explorer namester check
 
 # Default target
 .DEFAULT_GOAL := help
@@ -12,14 +27,14 @@ build:
 	@echo "Building Wails explorer..."
 	@cd explorer && wails build
 	@cp "explorer/build/bin/TrueBlocks Explorer.app/Contents/MacOS/trueblocks-explorer" bin/explorer
-	go build -o bin/testapp1 ./testapp1
-	go build -o bin/testapp2 ./testapp2
+	go build -o bin/namester ./namester
 	@echo "✅ Build complete"
 
 # Test all modules
 test:
 	@echo "Running tests..."
 	@cd explorer && go test ./...
+	@cd namester && go test ./...
 	@cd testapp1 && go test ./...
 	@cd testapp2 && go test ./...
 	@echo "Testing libraries..."
@@ -33,8 +48,7 @@ clean:
 	rm -rf bin/
 	@cd explorer && rm -rf build/
 	@cd explorer && go clean ./...
-	@cd testapp1 && go clean ./...
-	@cd testapp2 && go clean ./...
+	@cd namester && go clean ./...
 	@cd libs/trueblocks-sdk && go clean ./...
 	@cd libs/trueblocks-dalle && go clean ./...
 	@echo "✅ Clean complete"
@@ -44,6 +58,7 @@ lint:
 	@echo "Running linter on all modules..."
 	@command -v golangci-lint >/dev/null 2>&1 || { echo "golangci-lint not installed. Install with: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b \$$(go env GOPATH)/bin latest"; exit 1; }
 	@cd explorer && golangci-lint run
+	@cd namester && golangci-lint run
 	@cd testapp1 && golangci-lint run
 	@cd testapp2 && golangci-lint run
 	@echo "Linting libraries..."
@@ -55,8 +70,7 @@ lint:
 fmt:
 	@echo "Formatting code..."
 	@cd explorer && go fmt ./...
-	@cd testapp1 && go fmt ./...
-	@cd testapp2 && go fmt ./...
+	@cd namester && go fmt ./...
 	@cd libs/trueblocks-sdk && go fmt ./...
 	@cd libs/trueblocks-dalle && go fmt ./...
 	@echo "✅ Format complete"
@@ -73,32 +87,22 @@ bin/explorer: $(shell find explorer -name "*.go" -o -name "*.json" -o -name "*.m
 	@cp "explorer/build/bin/TrueBlocks Explorer.app/Contents/MacOS/trueblocks-explorer" bin/explorer
 	@echo "✅ Explorer build complete"
 
-bin/testapp1: $(shell find testapp1 -name "*.go" -o -name "*.mod" -o -name "*.sum")
-	@echo "Building testapp1..."
+bin/namester: $(shell find namester -name "*.go" -o -name "*.json" -o -name "*.mod" -o -name "*.sum" | grep -v build/)
+	@echo "Building Wails namester..."
 	@mkdir -p bin
-	go build -o bin/testapp1 ./testapp1
-	@echo "✅ testapp1 build complete"
-
-bin/testapp2: $(shell find testapp2 -name "*.go" -o -name "*.mod" -o -name "*.sum")
-	@echo "Building testapp2..."
-	@mkdir -p bin
-	go build -o bin/testapp2 ./testapp2
-	@echo "✅ testapp2 build complete"
+	@cd namester && wails build
+	@cp "namester/build/bin/TrueBlocks Namester.app/Contents/MacOS/trueblocks-namester" bin/namester
+	@echo "✅ Namester build complete"
 
 # Run explorer
 explorer: bin/explorer
 	@echo "Running explorer..."
 	./bin/explorer
 
-# Run testapp1
-app1: bin/testapp1
-	@echo "Running testapp1..."
-	./bin/testapp1
-
-# Run testapp2
-app2: bin/testapp2
-	@echo "Running testapp2..."
-	./bin/testapp2
+# Run namester
+namester: bin/namester
+	@echo "Running namester..."
+	./bin/namester
 
 # Check everything (format, lint, test, build)
 check: fmt test build
@@ -116,6 +120,5 @@ help:
 	@echo "  check      - Run fmt, test, and build"
 	@echo "  update     - Update git submodules and Go modules comprehensively"
 	@echo "  explorer   - Build and run explorer"
-	@echo "  app1       - Build and run testapp1"
-	@echo "  app2       - Build and run testapp2"
+	@echo "  namester   - Build and run namester"
 	@echo "  help       - Show this help message"
