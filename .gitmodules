@@ -17,3 +17,7 @@
 	path = dalleserver
 	url = https://github.com/TrueBlocks/trueblocks-dalleserver.git
 	branch = main
+[submodule "dalledress"]
+	path = dalledress
+	url = https://github.com/TrueBlocks/trueblocks-dalledress.git
+	branch = main
