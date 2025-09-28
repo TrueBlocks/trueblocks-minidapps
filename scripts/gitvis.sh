@@ -31,7 +31,7 @@ run_git_command() {
     echo "=== $display_name ==="
     if [ -d "$dir" ]; then
         cd "$dir" || exit 1
-        git "$@"
+        git "$@" | grep -v "^Your branch is up to date" | grep -v "^$" | grep -v "(use \"git" | grep -v "commit or discard"
         echo
     else
         echo "Directory not found: $dir"
