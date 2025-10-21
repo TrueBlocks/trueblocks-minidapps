@@ -21,3 +21,6 @@
 	path = dalledress
 	url = https://github.com/TrueBlocks/trueblocks-dalledress.git
 	branch = main
+[submodule "approvals"]
+	path = approvals
+	url = git@github.com:TrueBlocks/trueblocks-approvals.git
