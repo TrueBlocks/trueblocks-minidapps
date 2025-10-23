@@ -24,3 +24,6 @@
 [submodule "approvals"]
 	path = approvals
 	url = git@github.com:TrueBlocks/trueblocks-approvals.git
+[submodule "dev-tools/goMaker"]
+	path = dev-tools/goMaker
+	url = git@github.com:TrueBlocks/goMaker.git
