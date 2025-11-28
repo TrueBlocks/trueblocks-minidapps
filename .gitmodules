@@ -27,3 +27,6 @@
 [submodule "dev-tools/goMaker"]
 	path = dev-tools/goMaker
 	url = git@github.com:TrueBlocks/goMaker.git
+[submodule "chifra"]
+	path = chifra
+	url = https://github.com/TrueBlocks/trueblocks-chifra.git
