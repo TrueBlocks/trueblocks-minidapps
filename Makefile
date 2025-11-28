@@ -69,11 +69,6 @@ fmt:
 	@cd dev-tools/create-local-app && go fmt ./...
 	@echo "✅ Format complete"
 
-# Update everything: submodules, Go modules, and workspace
-update:
-	@echo "Running comprehensive update..."
-	@./scripts/update-all
-
 bin/explorer: $(shell find explorer -name "*.go" -o -name "*.json" -o -name "*.mod" -o -name "*.sum" | grep -v build/)
 	@echo "Building Wails explorer..."
 	@mkdir -p bin
