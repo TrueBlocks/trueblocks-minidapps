@@ -43,6 +43,13 @@ When I say "We want to go into step-by-step" mode, switch to these rules:
 ### Design Mode (Discussion + Analysis)
 When I say "Let's go into design mode" or similar, switch to these rules:
 
+🎨 **MODE IDENTIFIER (REQUIRED):**
+Every response in design mode MUST start with:
+```
+🎨 DESIGN MODE | [Can: discuss/analyze] [Cannot: implement/modify code]
+```
+This forces conscious acknowledgment of mode constraints before responding.
+
 📋 **Lightweight Discussion:**
 - NO full codebase scans or comprehensive exploration upfront
 - NO telling user about current code state unless specifically asked
@@ -72,19 +79,63 @@ When I say "Let's go into design mode" or similar, switch to these rules:
 - Clear recommendations with reasoning
 - Questions to clarify requirements
 
-🔒 **NO MODIFICATION RULE:**
+🚫 **FORBIDDEN PHRASES:**
+While in design mode, I MUST NOT use these phrases:
+- "I'll implement..."
+- "Let me create..."
+- "I'll modify..."
+- "Let me fix..."
+- "I'll add..."
+- "I'll update..."
+- "I'll change..."
+
+If I catch myself using them, I must stop and say:
+"I cannot implement code changes while in design mode."
+
+✅ **SELF-CHECK PROTOCOL (INTERNAL - DO NOT DISPLAY TO USER):**
+Before completing any response in design mode, I must internally verify:
+- ☐ Did I suggest code changes? (FORBIDDEN)
+- ☐ Did I read files before discussing them? (REQUIRED if discussing specifics)
+- ☐ Did I stay in analysis/discussion? (REQUIRED)
+- ☐ Did I try to exit the mode? (FORBIDDEN)
+
+This self-check is for internal validation only and should not be included in responses to the user.
+
+📝 **EXAMPLE VIOLATIONS:**
+FORBIDDEN in design mode:
+❌ "Let me update the EncodeTransaction function..."
+❌ "I'll add this to the file..."
+❌ "Should I exit design mode and implement this?"
+
+ALLOWED in design mode:
+✅ "The EncodeTransaction function could be improved by..."
+✅ "One approach would be to add..."
+✅ "I cannot implement code changes while in design mode."
+
+⚠️ **SEVERITY ESCALATION:**
+If I break design mode rules:
+- 1st violation: User reminds me "You're in design mode"
+- 2nd violation: User says "DESIGN MODE VIOLATION #2"
+- 3rd violation: Conversation restart required
+
+I should acknowledge: "Design mode violation acknowledged. Staying in design mode."
+
+🔒 **NO MODIFICATION RULE (ABSOLUTE):**
 - **ONCE IN DESIGN MODE, STAY THERE INDEFINITELY**
 - Must explicitly exit design mode before making any code changes
 - Do NOT fall back to normal mode unless explicitly told "exit design mode"
 - Design mode persists across multiple requests and conversations
-- If asked to implement something in design mode, respond: "Still in design mode - should I exit design mode and implement this?"
+- **NO SELF-INITIATED MODE EXITS**: I may NEVER exit any mode on my own volition for any reason whatsoever
+- **ABSOLUTE PROHIBITION**: Even if the user asks me to implement something while in design mode, I must respond: "I cannot implement code changes while in design mode." I may NOT assume permission to exit modes or ask for permission to exit.
 
 ### Mode Switching Rules (CRITICAL)
 - **MUTUALLY EXCLUSIVE**: You can NEVER be in both design mode and step-by-step mode simultaneously
+- **NO SELF-INITIATED MODE EXITS**: You may NEVER exit any mode on your own volition for any reason whatsoever
 - **Only two ways to exit each mode:**
   1. Explicit command: "exit [mode-name] mode"
   2. Command to enter the other mode: "go into [other-mode] mode"
 - **Mode persistence**: Once in a mode, stay there across all requests and conversations until explicitly changed
+- **ABSOLUTE PROHIBITION**: Even if the user asks you to implement something while in design mode, you must respond: "I cannot implement code changes while in design mode." You may NOT assume permission to exit modes or ask for permission to exit.
 
 ### VS Code Problems Server Reset
 When VS Code shows stale errors for deleted files or incorrect TypeScript diagnostics:
