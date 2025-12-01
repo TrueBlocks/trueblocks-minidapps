@@ -16,7 +16,6 @@ make test        # Run tests
 make fmt         # Format code
 make lint        # Run linter (requires golangci-lint)
 make explorer    # Run explorer
-make namester    # Run namester
 make dalleserver # Run dalleserver
 make clean       # Clean artifacts
 make help        # Show all commands

@@ -10,7 +10,6 @@ trueblocks-minidapps/
 │   ├── trueblocks-sdk/      # Core SDK library (v5)
 │   └── trueblocks-dalle/    # DALL-E integration library (v2)
 ├── explorer/                # TrueBlocks Explorer Wails application
-├── namester/                # TrueBlocks Namester Wails application
 ├── dalleserver/             # DALL-E API Server application
 ├── bin/                     # Built binaries (created by make build)
 ├── .github/workflows/       # CI/CD workflows
@@ -66,7 +65,6 @@ make lint
 
 # Run specific app
 make explorer
-make namester
 make dalleserver
 
 # Clean build artifacts
@@ -83,7 +81,6 @@ make update-libs
 cd libs/trueblocks-sdk && go get -u ./...
 cd libs/trueblocks-dalle && go get -u ./...
 cd explorer && go get -u ./...
-cd namester && go get -u ./...
 cd dalleserver && go get -u ./...
 ```
 
