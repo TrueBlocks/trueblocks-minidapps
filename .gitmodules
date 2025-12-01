@@ -7,9 +7,6 @@
 [submodule "explorer"]
 	path = explorer
 	url = git@github.com:TrueBlocks/trueblocks-explorer.git
-[submodule "namester"]
-	path = namester
-	url = git@github.com:TrueBlocks/trueblocks-namester.git
 [submodule "dev-tools/create-local-app"]
 	path = dev-tools/create-local-app
 	url = https://github.com/TrueBlocks/create-local-app.git

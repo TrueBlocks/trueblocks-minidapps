@@ -103,12 +103,10 @@ This self-check is for internal validation only and should not be included in re
 
 📝 **EXAMPLE VIOLATIONS:**
 FORBIDDEN in design mode:
-❌ "Let me update the EncodeTransaction function..."
 ❌ "I'll add this to the file..."
 ❌ "Should I exit design mode and implement this?"
 
 ALLOWED in design mode:
-✅ "The EncodeTransaction function could be improved by..."
 ✅ "One approach would be to add..."
 ✅ "I cannot implement code changes while in design mode."
 
